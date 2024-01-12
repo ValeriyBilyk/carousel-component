@@ -1,15 +1,9 @@
-import { Button, IconButton } from "@mui/material";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Navigation } from "./Navigation";
+import { List } from "./List";
 
 export const Carousel = () => {
     return <div>
-        <IconButton>
-            <ChevronLeftIcon />
-        </IconButton>
-        <Button variant="text">Allan de Neergaard</Button>
-        <IconButton>
-            <ChevronRightIcon />
-        </IconButton>
+        <Navigation />
+        <List/>
     </div>
 }
