@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Checkbox } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Checkbox, Divider } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ChangeEvent, SyntheticEvent } from "react";
 import { CHANGE_TAX_RULE } from "./Carousel";
@@ -14,27 +14,35 @@ export const List = ({state, dispatch}: {state: any, dispatch: any}) => {
         dispatch({ type: CHANGE_TAX_RULE, taxRuleName, checked: event.target.checked })
     }
 
-    return <div>
+    return <div style={{width: 400}}>
         <Accordion style={{marginBottom: 0}}>
             <AccordionSummary onClick={accordionOnChange}>
-                <Checkbox
-                    checked={allChecked}
-                    indeterminate={!allChecked}
-                />
-                All Award Letters
+                <Box sx={{display: "flex", alignItems: "center", fontWeight: "600"}}>
+                    <Checkbox
+                        checked={allChecked}
+                        indeterminate={!allChecked}
+                    />
+                    All Award Letters
+                </Box>
             </AccordionSummary>
         </Accordion>
         {state.transformedTaxRules.map((taxRule: any) => {
             return <Accordion style={{marginBottom: 0, marginTop: 0}}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Checkbox checked={taxRule.checked} onChange={(event) => {
-                        handleCheckboxChange(event, taxRule.taxRuleName)
-                    }}/>
-                    {taxRule.taxRuleName}
-                    ({taxRule.grants.length} Grants)
+                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
+                        <Box sx={{display: "flex", alignItems: "center", fontWeight: "500"}}>
+                            <Checkbox checked={taxRule.checked} onChange={(event) => {
+                                handleCheckboxChange(event, taxRule.taxRuleName)
+                            }}/>
+                            {taxRule.taxRuleName}
+                        </Box>
+                        <span style={{fontSize: 12}}>({taxRule.grants.length} Grants)</span>
+                    </Box>
                 </AccordionSummary>
                 <AccordionDetails>
-                    {taxRule.grants.map((grant: any) => grant)}
+                    <ul style={{listStyle: "none", margin: 0, padding: 0}}>
+                        {taxRule.grants.map((grant: string) => <li style={{paddingTop: 8, paddingBottom: 8}}>{grant}</li>)}
+                    </ul>
                 </AccordionDetails>
             </Accordion>
         })}

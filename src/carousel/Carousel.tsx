@@ -1,6 +1,7 @@
 import { Navigation } from "./Navigation";
 import { List } from "./List";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import { Box, Popover } from "@mui/material";
 
 export type Tax = {
     countryCode: number; // Example: 1, 2, 3...
@@ -135,8 +136,38 @@ export const Carousel = () => {
         transformedTaxRules: transformGrantsToTaxRules(grants)
     })
 
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
     return <div>
-        <Navigation state={state} dispatch={dispatch}/>
-        <List state={state} dispatch={dispatch}/>
+        <Box sx={{display: "flex", justifyContent: "center"}}>
+            <Navigation state={state} dispatch={dispatch} setTaxRulesOpened={handleClick}/>
+        </Box>
+        <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+            }}
+        >
+            <List state={state} dispatch={dispatch}/>
+        </Popover>
     </div>
 }

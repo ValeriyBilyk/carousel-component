@@ -3,7 +3,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { NAVIGATE } from "./Carousel";
 
-export const Navigation = ({state, dispatch}: {state: any, dispatch: any}) => {
+export const Navigation = ({state, dispatch, setTaxRulesOpened}: {state: any, dispatch: any, setTaxRulesOpened: any}) => {
     const { selectedGrant } = state
     console.log(state)
 
@@ -17,7 +17,9 @@ export const Navigation = ({state, dispatch}: {state: any, dispatch: any}) => {
         }}>
             <ChevronLeftIcon />
         </IconButton>
-        <Button variant="text">{selectedGrant.grant.stakeholderName} {selectedGrant.orderValue + 1}/{selectedGrant.commonAmount}</Button>
+        <Button variant="text" onClick={setTaxRulesOpened}>
+            {selectedGrant.grant.stakeholderName} {selectedGrant.orderValue + 1}/{selectedGrant.commonAmount}
+        </Button>
         <IconButton disabled={!selectedGrant.canNavigateForward} onClick={() => {
             handleNavigationClick("forward")
         }}>
