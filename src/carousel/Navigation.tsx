@@ -1,17 +1,26 @@
 import { Button, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { NAVIGATE } from "./Carousel";
 
 export const Navigation = ({state, dispatch}: {state: any, dispatch: any}) => {
     const { selectedGrant } = state
     console.log(state)
 
+    const handleNavigationClick = (direction: string) => {
+        dispatch({ type: NAVIGATE, direction})
+    }
+
     return <div>
-        <IconButton>
+        <IconButton disabled={!selectedGrant.canNavigateBack} onClick={() => {
+            handleNavigationClick("back")
+        }}>
             <ChevronLeftIcon />
         </IconButton>
-        <Button variant="text">{selectedGrant.grant.stakeholderName} {selectedGrant.orderValue}/{selectedGrant.commonAmount}</Button>
-        <IconButton>
+        <Button variant="text">{selectedGrant.grant.stakeholderName} {selectedGrant.orderValue + 1}/{selectedGrant.commonAmount}</Button>
+        <IconButton disabled={!selectedGrant.canNavigateForward} onClick={() => {
+            handleNavigationClick("forward")
+        }}>
             <ChevronRightIcon />
         </IconButton>
     </div>
