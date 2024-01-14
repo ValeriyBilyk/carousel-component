@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Checkbox, Divider }
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ChangeEvent, SyntheticEvent } from "react";
 import { CHANGE_TAX_RULE } from "./Carousel";
+import ReactCountryFlag from "react-country-flag";
 
 export const List = ({state, dispatch}: {state: any, dispatch: any}) => {
     const allChecked = state.transformedTaxRules.filter((taxRule: any) =>
@@ -34,7 +35,16 @@ export const List = ({state, dispatch}: {state: any, dispatch: any}) => {
                             <Checkbox checked={taxRule.checked} onChange={(event) => {
                                 handleCheckboxChange(event, taxRule.taxRuleName)
                             }}/>
-                            {taxRule.taxRuleName}
+                            <ReactCountryFlag
+                                countryCode={taxRule.countryCode}
+                                svg
+                                style={{
+                                    width: '2em',
+                                    height: '2em',
+                                }}
+                                title={taxRule.countryCode}
+                            />
+                            <span style={{marginLeft: 8}}>{taxRule.taxRuleName}</span>
                         </Box>
                         <span style={{fontSize: 12}}>({taxRule.grants.length} Grants)</span>
                     </Box>

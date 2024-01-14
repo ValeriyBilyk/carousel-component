@@ -5,7 +5,6 @@ import { NAVIGATE } from "./Carousel";
 
 export const Navigation = ({state, dispatch, setTaxRulesOpened}: {state: any, dispatch: any, setTaxRulesOpened: any}) => {
     const { selectedGrant } = state
-    console.log(state)
 
     const handleNavigationClick = (direction: string) => {
         dispatch({ type: NAVIGATE, direction})

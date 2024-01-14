@@ -4,7 +4,7 @@ import { useReducer, useState } from "react";
 import { Box, Popover } from "@mui/material";
 
 export type Tax = {
-    countryCode: number; // Example: 1, 2, 3...
+    countryCode: string; // Example: 1, 2, 3...
     taxRuleName: string; // Example: "Rule A", "Rule B"...
 }
 
@@ -20,11 +20,11 @@ const grants: Array<Grant> = [
         available: true,
         taxRules: [
             {
-                countryCode: 1, // Example: 1, 2, 3...
+                countryCode: "US", // Example: 1, 2, 3...
                 taxRuleName: "Rule A", // Example: "Rule A", "Rule B"...
             },
             {
-                countryCode: 2, // Example: 1, 2, 3...
+                countryCode: "IL", // Example: 1, 2, 3...
                 taxRuleName: "Rule B", // Example: "Rule A", "Rule B"...
             }
         ]
@@ -34,7 +34,7 @@ const grants: Array<Grant> = [
         available: true,
         taxRules: [
             {
-                countryCode: 2, // Example: 1, 2, 3...
+                countryCode: "IL", // Example: 1, 2, 3...
                 taxRuleName: "Rule B", // Example: "Rule A", "Rule B"...
             }
         ]
@@ -60,8 +60,6 @@ function transformGrantsToTaxRules(grants: Array<Grant>) {
 
     return Object.values(taxRulesResult)
 }
-
-transformGrantsToTaxRules(grants)
 
 export const CHANGE_TAX_RULE = "CHANGE_TAX_RULE"
 export const NAVIGATE = "NAVIGATE"
