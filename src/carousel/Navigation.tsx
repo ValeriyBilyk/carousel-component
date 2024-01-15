@@ -1,9 +1,10 @@
 import { Button, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { NAVIGATE } from "./Carousel";
+import { NAVIGATE, useCarouselContext } from "./context";
 
-export const Navigation = ({state, dispatch, setTaxRulesOpened}: {state: any, dispatch: any, setTaxRulesOpened: any}) => {
+export const Navigation = ({setTaxRulesOpened}: {setTaxRulesOpened: (event: React.MouseEvent<HTMLButtonElement>) => void}) => {
+    const { state, dispatch } = useCarouselContext()
     const { selectedGrant } = state
 
     const handleNavigationClick = (direction: string) => {

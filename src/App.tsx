@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
 import { Carousel } from "./carousel/Carousel";
+import { CarouselProvider } from "./carousel/context";
 
 function App() {
   return (
     <div className="App">
-        <Carousel />
+        <CarouselProvider>
+            <Carousel />
+        </CarouselProvider>
     </div>
   );
 }

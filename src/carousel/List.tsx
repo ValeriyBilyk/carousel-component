@@ -1,15 +1,14 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Checkbox, Divider } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Checkbox } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ChangeEvent, SyntheticEvent } from "react";
-import { CHANGE_TAX_RULE } from "./Carousel";
+import { ChangeEvent } from "react";
 import ReactCountryFlag from "react-country-flag";
+import { CHANGE_TAX_RULE, useCarouselContext } from "./context";
+import { TransformedTaxRule } from "./types";
 
-export const List = ({state, dispatch}: {state: any, dispatch: any}) => {
-    const allChecked = state.transformedTaxRules.filter((taxRule: any) =>
+export const List = () => {
+    const { state, dispatch} = useCarouselContext()
+    const allChecked = state.transformedTaxRules.filter((taxRule: TransformedTaxRule) =>
         taxRule.checked).length === state.transformedTaxRules.length
-    const accordionOnChange = (event: SyntheticEvent) => {
-        event.stopPropagation()
-    }
 
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, taxRuleName: string) => {
         dispatch({ type: CHANGE_TAX_RULE, taxRuleName, checked: event.target.checked })
@@ -17,7 +16,7 @@ export const List = ({state, dispatch}: {state: any, dispatch: any}) => {
 
     return <div style={{width: 400}}>
         <Accordion style={{marginBottom: 0}}>
-            <AccordionSummary onClick={accordionOnChange}>
+            <AccordionSummary>
                 <Box sx={{display: "flex", alignItems: "center", fontWeight: "600"}}>
                     <Checkbox
                         checked={allChecked}
@@ -27,7 +26,7 @@ export const List = ({state, dispatch}: {state: any, dispatch: any}) => {
                 </Box>
             </AccordionSummary>
         </Accordion>
-        {state.transformedTaxRules.map((taxRule: any) => {
+        {state.transformedTaxRules.map((taxRule: TransformedTaxRule) => {
             return <Accordion style={{marginBottom: 0, marginTop: 0}}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
